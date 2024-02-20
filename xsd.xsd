@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="Devices">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Dev" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SerialNumber" type="SerialNumberType"/>
+              <xs:element name="IPAddress" type="IPAddressType"/>
+              <xs:element name="DeviceName" type="DeviceNameType"/>
+              <xs:element name="ModelName" type="ModelNameType" minOccurs="0"/>
+              <xs:element name="Type" type="TypeType"/>
+              <xs:element name="CommunicationSetting">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PortNumber" type="PortNumberType"/>
+                    <xs:element name="UseSSL" type="UseSSLType"/>
+                    <xs:element name="Password" type="PasswordType"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="SerialNumberType">
+    <xs:restriction base="xs:string">
+      <xs:length value="16"/>
+      <xs:pattern value="[A-Z0-9]{16}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="IPAddressType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(\d{1,3}\.){3}\d{1,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DeviceNameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0"/>
+      <xs:maxLength value="24"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ModelNameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0"/>
+      <xs:maxLength value="24"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A3"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PortNumberType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="65535"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="UseSSLType">
+    <xs:restriction base="xs:boolean"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="PasswordType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="0"/>
+      <xs:maxLength value="64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
